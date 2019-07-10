@@ -13,24 +13,29 @@ public class TextDumper<T extends AbstractAppointmentBook> implements Appointmen
     @Override
     public void dump(AbstractAppointmentBook abstractAppointmentBook) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
-        String testString = "testddd";
         AbstractAppointmentBook<Appointment> apptBook = abstractAppointmentBook;
         Collection<Appointment> appointments = apptBook.getAppointments();
 
         //Attach owner name to string
-        stringBuilder.append(abstractAppointmentBook.getOwnerName() + '@');
+        //seperating the owner and all appointments by a new line delimeter
+        //using '@' char to seperate arguments
+        try {
+            stringBuilder.append(abstractAppointmentBook.getOwnerName() + '\n');
 
-        //Attach appointments
-        for (Appointment appointment : appointments)
-        {
-            System.out.println("D");
-            StringBuilder appt = new StringBuilder();
-            appt.append(appointment.getDescription() + '@' + appointment.getBeginTimeString() + '@' + appointment.getEndTimeString() + '\n');
-            stringBuilder.append(appt);
+            //Attach appointments
+            for (Appointment appointment : appointments) {
+                StringBuilder appt = new StringBuilder();
+                appt.append(appointment.getDescription() + '@' + appointment.getBeginTimeString() + '@' + appointment.getEndTimeString() + '\n');
+                stringBuilder.append(appt);
+            }
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter("test.txt"));
+            writer.write(stringBuilder.toString());
+            writer.close();
         }
-
-        BufferedWriter writer = new BufferedWriter(new FileWriter("test.txt"));
-        writer.write(stringBuilder.toString());
-        writer.close();
+        catch (Exception err)
+        {
+            throw new IOException("Error in trying to dump Appointment Book to text File");
+        }
     }
 }

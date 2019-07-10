@@ -8,8 +8,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-// Maybe use scanner to read in from a file.
-
 public class TextParser <T extends AbstractAppointmentBook> implements AppointmentBookParser {
 
     @Override
