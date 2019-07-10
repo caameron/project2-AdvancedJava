@@ -141,7 +141,7 @@ public class Project2 {
     AppointmentBook apptBook = new AppointmentBook(owner);
     Appointment appt = new Appointment(beginDate, beginTime, endDate, endTime, description);
     apptBook.addAppointment(appt);
-
+    apptBook.addAppointment(appt);
     //Write out appointmentbook to text file
     TextDumper textDumper = new TextDumper();
     try {
