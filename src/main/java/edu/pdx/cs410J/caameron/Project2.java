@@ -151,6 +151,15 @@ public class Project2 {
     {
         System.out.println(err);
     }
+
+    TextParser textParser = new TextParser();
+    try {
+        textParser.parse();
+    }
+    catch (Exception err )
+    {
+        System.out.println("BAD BAD BAD");
+    }
     //Check for print flag and print out appointment if it is there
     for (Object option : options)
     {
