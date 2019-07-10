@@ -1,6 +1,10 @@
 package edu.pdx.cs410J.caameron;
 
+import org.w3c.dom.Text;
+
 import javax.annotation.processing.SupportedSourceVersion;
+import java.io.IOException;
+import java.io.InvalidObjectException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -138,6 +142,15 @@ public class Project2 {
     Appointment appt = new Appointment(beginDate, beginTime, endDate, endTime, description);
     apptBook.addAppointment(appt);
 
+    //Write out appointmentbook to text file
+    TextDumper textDumper = new TextDumper();
+    try {
+        textDumper.dump(apptBook);
+    }
+    catch (IOException err)
+    {
+        System.out.println(err);
+    }
     //Check for print flag and print out appointment if it is there
     for (Object option : options)
     {
