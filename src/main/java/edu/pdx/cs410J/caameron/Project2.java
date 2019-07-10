@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * The main class for the CS410J appointment book Project
  */
-public class Project1 {
+public class Project2 {
     /**
      * The main method will handle the command line parsing for project 1 as well as some error handling.
      * It will store the command line arguments in two ArrayLists one for arguments and one for options.
