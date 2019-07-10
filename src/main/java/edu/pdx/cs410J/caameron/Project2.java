@@ -154,11 +154,11 @@ public class Project2 {
 
     TextParser textParser = new TextParser("testOutput.txt");
     try {
-        textParser.parse();
+        System.out.println(textParser.parse().toString());
     }
     catch (Exception err )
     {
-        System.out.println("BAD BAD BAD");
+        System.out.println(err);
     }
     //Check for print flag and print out appointment if it is there
     for (Object option : options)
