@@ -143,7 +143,7 @@ public class Project2 {
     apptBook.addAppointment(appt);
     apptBook.addAppointment(appt);
     //Write out appointmentbook to text file
-    TextDumper textDumper = new TextDumper();
+    TextDumper textDumper = new TextDumper("testOutput.txt");
     try {
         textDumper.dump(apptBook);
     }
@@ -152,7 +152,7 @@ public class Project2 {
         System.out.println(err);
     }
 
-    TextParser textParser = new TextParser();
+    TextParser textParser = new TextParser("testOutput.txt");
     try {
         textParser.parse();
     }

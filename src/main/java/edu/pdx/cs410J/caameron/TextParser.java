@@ -6,28 +6,32 @@ import edu.pdx.cs410J.ParserException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 
 public class TextParser <T extends AbstractAppointmentBook> implements AppointmentBookParser {
+    private String fileName;
+
+    public TextParser(String fileName)
+    {
+        this.fileName = fileName;
+    }
 
     @Override
     public AbstractAppointmentBook parse() throws ParserException {
         FileReader fileIn;
+        AppointmentBook<Appointment> returnBook;
         try {
-            fileIn = new FileReader("test.txt");
+            fileIn = new FileReader(fileName);
+            BufferedReader in = new BufferedReader(fileIn);
+
+            //Start reading line by line and creating the appointment book
+            System.out.println(in.readLine() + in.readLine());
+            in.close();
         }
         catch (Exception err)
         {
-            System.out.println("Could not find file to read in");
-            return null;
+            throw new ParserException("Could not find file to read in");
         }
 
-        BufferedReader in = new BufferedReader(fileIn);
-        try {
-            System.out.println(in.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return null;
     }
 }

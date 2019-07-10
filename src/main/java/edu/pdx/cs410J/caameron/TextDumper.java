@@ -9,6 +9,13 @@ import java.io.IOException;
 import java.util.Collection;
 
 public class TextDumper<T extends AbstractAppointmentBook> implements AppointmentBookDumper {
+    String filename;
+
+    public TextDumper(String filename)
+    {
+        this.filename = filename;
+    }
+
 
     @Override
     public void dump(AbstractAppointmentBook abstractAppointmentBook) throws IOException {
@@ -29,7 +36,7 @@ public class TextDumper<T extends AbstractAppointmentBook> implements Appointmen
                 stringBuilder.append(appt);
             }
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter("test.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
             writer.write(stringBuilder.toString());
             writer.close();
         }
