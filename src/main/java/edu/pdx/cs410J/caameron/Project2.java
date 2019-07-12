@@ -150,30 +150,40 @@ public class Project2 {
     }
 
     //There are the correct amount of arguments now create appointmentBook and appointment. Then add appointment to appointmentBook
-    AppointmentBook apptBook = new AppointmentBook(owner);
+    AppointmentBook apptBook;
+//    AppointmentBook apptBook = new AppointmentBook(owner);
     Appointment appt = new Appointment(beginDate, beginTime, endDate, endTime, description);
-    apptBook.addAppointment(appt);
-    apptBook.addAppointment(appt);
+//    apptBook.addAppointment(appt);
 
     //Check if the option to read and write to a file are there
     //Write out appointmentbook to text file
 
     if(printAndWrite)
     {
+        TextParser textParser = new TextParser(fileName);
+        try {
+            apptBook = (AppointmentBook) textParser.parse();
+        }
+        catch (Exception err) {
+            System.out.println("No text file with that name exists, creating a new file");
+            apptBook = new AppointmentBook(owner);
+        }
+        apptBook.addAppointment(appt);
+
         TextDumper textDumper = new TextDumper(fileName);
         try {
             textDumper.dump(apptBook);
         } catch (IOException err) {
             System.out.println(err);
         }
-
-        TextParser textParser = new TextParser("testOutput.txt");
-        try {
-            System.out.println(textParser.parse().toString());
-        } catch (Exception err) {
-            System.out.println(err);
-        }
     }
+    else
+    {
+        //If the printAndWrite flag is not set just create the apptBook and add an appt.
+        apptBook = new AppointmentBook(owner);
+        apptBook.addAppointment(appt);
+    }
+
     //Check for print flag and print out appointment if it is there
     for (Object option : options)
     {
