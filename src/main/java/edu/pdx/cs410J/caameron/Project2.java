@@ -171,7 +171,7 @@ public class Project2 {
         }
         catch (Exception err) {
 //            System.out.println("No text file with that name exists, creating new file " + fileName);
-           if(err.getMessage().equals("Owner name passed in through command line does not match owner name from text file"))
+           if(!err.getMessage().equals("No text file with that name exists, creating new file " + fileName))
            {
                System.out.println(err.getMessage());
                System.exit(1);

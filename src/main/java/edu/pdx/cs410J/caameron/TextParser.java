@@ -39,9 +39,12 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
             returnBook = new AppointmentBook<>(owner);
 
             //Flags for malformatted text file
-            AtomicBoolean malformatted = new AtomicBoolean(false);
+            boolean malformatted = false;
             Stream<String> lines = in.lines();
-            lines.forEach(x-> {
+            String [] remainingLines = lines.toArray(size -> new String[size]);
+//            lines.forEach(x-> {
+            for(String line: remainingLines)
+            {
                 //Parse each line to get the time and description arguments
                 String description;
                 String beginTime;
@@ -49,10 +52,11 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
                 String endTime;
                 String endDate;
 
-                String [] split = x.split("@");
+                String [] split = line.split("@");
                 if(split.length != 3)
                 {
-                    malformatted.set(true);
+                    malformatted = true;
+                    break;
                 }
 
                 description = split[0];
@@ -61,7 +65,8 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
                 String [] endSplit = split[2].split(" ");
                 if(begSplit.length!= 2 && endSplit.length != 2)
                 {
-                    malformatted.set(true);
+                    malformatted = true;
+                    break;
                 }
 
                 beginDate = begSplit[0];
@@ -70,9 +75,12 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
                 endTime = endSplit[1];
                 Appointment appt = new Appointment(beginDate, beginTime, endDate, endTime, description);
                 returnBook.addAppointment(appt);
-            });
+            }
 
-            System.out.println(malformatted);
+            if(malformatted == true)
+            {
+                throw new ParserException("Malformatted text file. Program now exiting.");
+            }
 
             in.close();
         }
@@ -88,3 +96,4 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
         return returnBook;
     }
 }
+
