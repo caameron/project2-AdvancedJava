@@ -10,10 +10,12 @@ import java.util.stream.Stream;
 
 public class TextParser <T extends AbstractAppointmentBook> implements AppointmentBookParser {
     private String fileName;
+    private String ownerNameGiven;
 
-    public TextParser(String fileName)
+    public TextParser(String fileName, String ownerName)
     {
         this.fileName = fileName;
+        this.ownerNameGiven = ownerName;
     }
 
     @Override
@@ -26,6 +28,13 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
 
             //Read in all lines of file and them loop through them
             String owner = in.readLine();
+
+            //Check that the owner name in file is the same as the o ne passed in
+            if(owner.equals(ownerNameGiven) == false)
+            {
+                throw new ParserException("Owner name passed in through command line does not match owner name from text file");
+            }
+
             returnBook = new AppointmentBook<>(owner);
 
             Stream<String> lines = in.lines();
@@ -49,9 +58,13 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
 
             in.close();
         }
+        catch (ParserException err)
+        {
+            throw err;
+        }
         catch (Exception err)
         {
-            throw new ParserException("Could not find file to read in");
+            throw new ParserException("No text file with that name exists, creating new file " + fileName);
         }
 
         return returnBook;

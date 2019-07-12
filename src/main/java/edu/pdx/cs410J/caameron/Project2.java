@@ -165,13 +165,19 @@ public class Project2 {
 
     if(printAndWrite)
     {
-        TextParser textParser = new TextParser(fileName);
+        TextParser textParser = new TextParser(fileName, owner);
         try {
             apptBook = (AppointmentBook) textParser.parse();
         }
         catch (Exception err) {
-            System.out.println("No text file with that name exists, creating new file " + fileName);
-            apptBook = new AppointmentBook(owner);
+//            System.out.println("No text file with that name exists, creating new file " + fileName);
+           if(err.getMessage().equals("Owner name passed in through command line does not match owner name from text file"))
+           {
+               System.out.println(err.getMessage());
+               System.exit(1);
+           }
+           System.out.println(err);
+           apptBook = new AppointmentBook(owner);
         }
         apptBook.addAppointment(appt);
 
