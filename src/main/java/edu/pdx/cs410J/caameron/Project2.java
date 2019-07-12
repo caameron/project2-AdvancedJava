@@ -45,6 +45,11 @@ public class Project2 {
           System.err.println("Found empty argument, arguments cannot be empty or null.");
           System.exit(1);
       }
+//      if(getNext == true && arg.charAt(0) == '-')
+//      {
+//          System.err.println("Did not provide a name for the output file, please pass one in the form of -textFile <file name>");
+//          System.exit(1);
+//      }
       if(arg.charAt(0) == '-' && stopOptionflag == true)
       {
         options.add(arg);
@@ -165,7 +170,7 @@ public class Project2 {
             apptBook = (AppointmentBook) textParser.parse();
         }
         catch (Exception err) {
-            System.out.println("No text file with that name exists, creating a new file");
+            System.out.println("No text file with that name exists, creating new file " + fileName);
             apptBook = new AppointmentBook(owner);
         }
         apptBook.addAppointment(appt);
