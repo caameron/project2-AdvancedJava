@@ -23,8 +23,6 @@ public class Project2 {
      * @param args Command line arguments sent to main program.
      */
   public static void main(String[] args) {
-//    Appointment appointment = new Appointment();  // Refer to one of Dave's classes so that we can be sure it is on the classpath
-//    System.err.println("Missing command line arguments");
 
     /*
       Check for the correct amount of arguments passed in from the command line,
@@ -32,24 +30,38 @@ public class Project2 {
       Leave the error handing for formats of the input to the classes themselves
 
      */
+    //Create variable to hold file name if given
+      String fileName = "";
 
     //Parse the arguments sent in into arguments for the program and options (options start with '-')
     List arguments = new ArrayList();
     List options = new ArrayList();
-    boolean flag = true;
+    boolean stopOptionflag = true;
+    boolean getNext = false;
+    boolean printAndWrite = false;
     for (String arg : args) {
       if(arg.isEmpty() == true)
       {
           System.err.println("Found empty argument, arguments cannot be empty or null.");
           System.exit(1);
       }
-      if(arg.charAt(0) == '-' && flag == true)
+      if(arg.charAt(0) == '-' && stopOptionflag == true)
       {
         options.add(arg);
+        if(arg.equals("-textFile"))
+        {
+            printAndWrite = true;
+            getNext = true;
+        }
+      }
+      else if (getNext == true)
+      {
+          getNext = false;
+          fileName = arg;
       }
       else {
         arguments.add(arg);
-        flag = false;
+        stopOptionflag = false;
       }
     }
 
@@ -71,8 +83,8 @@ public class Project2 {
     }
 
       for (Object option : options) {
-          if (!(option.toString().equals("-README")) && !(option.toString().equals("-print"))) {
-              System.err.println("Option not recognized. Available options are : -README  -print");
+          if (!(option.toString().equals("-README")) && !(option.toString().equals("-print")) && !(option.toString().equals("-textFile"))) {
+              System.err.println("Option not recognized. Available options are : -README  -print textFile <file>");
               System.exit(1);
           }
       }
@@ -142,23 +154,25 @@ public class Project2 {
     Appointment appt = new Appointment(beginDate, beginTime, endDate, endTime, description);
     apptBook.addAppointment(appt);
     apptBook.addAppointment(appt);
-    //Write out appointmentbook to text file
-    TextDumper textDumper = new TextDumper("testOutput.txt");
-    try {
-        textDumper.dump(apptBook);
-    }
-    catch (IOException err)
-    {
-        System.out.println(err);
-    }
 
-    TextParser textParser = new TextParser("testOutput.txt");
-    try {
-        System.out.println(textParser.parse().toString());
-    }
-    catch (Exception err )
+    //Check if the option to read and write to a file are there
+    //Write out appointmentbook to text file
+
+    if(printAndWrite)
     {
-        System.out.println(err);
+        TextDumper textDumper = new TextDumper(fileName);
+        try {
+            textDumper.dump(apptBook);
+        } catch (IOException err) {
+            System.out.println(err);
+        }
+
+        TextParser textParser = new TextParser("testOutput.txt");
+        try {
+            System.out.println(textParser.parse().toString());
+        } catch (Exception err) {
+            System.out.println(err);
+        }
     }
     //Check for print flag and print out appointment if it is there
     for (Object option : options)
