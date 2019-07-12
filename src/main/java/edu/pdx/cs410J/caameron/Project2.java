@@ -176,7 +176,7 @@ public class Project2 {
                System.out.println(err.getMessage());
                System.exit(1);
            }
-           System.out.println(err);
+           System.out.println(err.getMessage());
            apptBook = new AppointmentBook(owner);
         }
         apptBook.addAppointment(appt);

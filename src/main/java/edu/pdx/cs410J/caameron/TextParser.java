@@ -6,6 +6,7 @@ import edu.pdx.cs410J.ParserException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
 public class TextParser <T extends AbstractAppointmentBook> implements AppointmentBookParser {
@@ -37,6 +38,8 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
 
             returnBook = new AppointmentBook<>(owner);
 
+            //Flags for malformatted text file
+            AtomicBoolean malformatted = new AtomicBoolean(false);
             Stream<String> lines = in.lines();
             lines.forEach(x-> {
                 //Parse each line to get the time and description arguments
@@ -47,14 +50,29 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
                 String endDate;
 
                 String [] split = x.split("@");
+                if(split.length != 3)
+                {
+                    malformatted.set(true);
+                }
+
                 description = split[0];
-                beginDate = split[1].split(" ")[0];
-                beginTime = split[1].split(" ")[1];
-                endDate = split[2].split(" ")[0];
-                endTime = split[2].split(" ")[1];
+
+                String [] begSplit = split[1].split(" ");
+                String [] endSplit = split[2].split(" ");
+                if(begSplit.length!= 2 && endSplit.length != 2)
+                {
+                    malformatted.set(true);
+                }
+
+                beginDate = begSplit[0];
+                beginTime = begSplit[1];
+                endDate = endSplit[0];
+                endTime = endSplit[1];
                 Appointment appt = new Appointment(beginDate, beginTime, endDate, endTime, description);
                 returnBook.addAppointment(appt);
             });
+
+            System.out.println(malformatted);
 
             in.close();
         }
