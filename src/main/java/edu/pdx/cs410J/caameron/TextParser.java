@@ -8,16 +8,42 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.stream.Stream;
 
+/**
+ * Text Parser Class that is used to parse a text file that contains information on the details of a appointment book.
+ * Uses BufferedReader and FileReader classes to open a file and obtain all the lines.
+ *
+ * @param <T> AppointmentBook Class
+ */
 public class TextParser <T extends AbstractAppointmentBook> implements AppointmentBookParser {
     private String fileName;
     private String ownerNameGiven;
 
+    /**
+     * Creates a new TextParse instance. Sets the owner name and file name data members of the class.
+     * The fileName will be used to open the file and ownerName is used to check that the owner matches
+     * the file.
+     * @param fileName
+     * @param ownerName
+     */
     public TextParser(String fileName, String ownerName)
     {
         this.fileName = fileName;
         this.ownerNameGiven = ownerName;
     }
 
+    /**
+     * Method to parse the content of the text file.
+     * The format of the file should be as follows :
+     *           First line: Name of the owner
+     *           Each line after: an Appointments arguments seperated by '@'
+     * @return Returns an instance of an appointmentBook class that contains the owner and appointments from
+     * the text file.
+     *
+     * @throws ParserException Will throw one of three exceptions:
+     *                         Owner name in file doesn't match name given from command line
+     *                         Text file that has been opened is malformatted
+     *                         No text file has been found with name provided and a new one will be created
+     */
     @Override
     public AbstractAppointmentBook parse() throws ParserException {
         FileReader fileIn;
