@@ -77,10 +77,13 @@ public class Project2 {
     {
       if(option.toString().equals("-README"))
       {
-        System.out.println("Caameron Nakasone\nAdvanced Programming in Java\nProject 1: Designing an Appointment Book Application\n" +
-                "Project 1 will take in arguments from the command line to create an Appointment Book and an Appointment\n" +
+        System.out.println("Caameron Nakasone\nAdvanced Programming in Java\nProject 2: Storing An Appointment Book in a Text File\n" +
+                "Project 2 will take in arguments from the command line to create an Appointment Book and an Appointment\n" +
                 "that will be automatically added to the created Appointment Book. The arguments include the name of the owner for the\n" +
                 "appointment book and details about the appointment which will be added (description, start date/time and end date/time\n" +
+                "Optionally the program can also read in an appointment book from a text file and then add an appointment to that book\n" +
+                "with the arguments given through the command line, the resulting appointment book will then be written back to that text\n" +
+                "file. This can be invoked by using the -textFile <fileName> option on the command line\n\n" +
                 "There are also README and print options which you may choose to invoke. The README brings up this message and the print\n" +
                 "option will print the appointment that has just been added to the standard output. No fields can be empty from the command\n" +
                 "line and the dates and times must be formatted correctly for the program to run. If you have entered in something\n" +
