@@ -14,12 +14,14 @@ import java.util.List;
  */
 public class Project2 {
     /**
-     * The main method will handle the command line parsing for project 1 as well as some error handling.
+     * The main method will handle the command line parsing for project 2 as well as some error handling.
      * It will store the command line arguments in two ArrayLists one for arguments and one for options.
      * It will check for the correct formatting of some of the arguments and if there are the correct
      * number of arguments. If there are options sent in it will invoke their corresponding actions.
-     * And finally if needed create an instance of the Appointment Book class and Appointment class
+     * It will also create an instance of the Appointment Book class and Appointment class
      * based on the command line arguments and then add that Appointment to the Appointment Book.
+     * If the textFile flag is detected the the main method will also create instances of the textDumper
+     * and textParser classes to read and write to a file.
      * @param args Command line arguments sent to main program.
      */
   public static void main(String[] args) {
@@ -201,7 +203,8 @@ public class Project2 {
       if(option.toString().equals("-print"))
       {
         ArrayList appointments = apptBook.getAppointments();
-        Appointment appointment = (Appointment) appointments.get(0);
+        int size = appointments.size();
+        Appointment appointment = (Appointment) appointments.get(size - 1);
         System.out.println(appointment.toString());
         System.exit(0);
       }

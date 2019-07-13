@@ -6,7 +6,6 @@ import edu.pdx.cs410J.ParserException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
 public class TextParser <T extends AbstractAppointmentBook> implements AppointmentBookParser {
@@ -79,7 +78,7 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
 
             if(malformatted == true)
             {
-                throw new ParserException("Malformatted text file. Program now exiting.");
+                throw new ParserException("Malformatted text file, please check that file is in correct format.");
             }
 
             in.close();

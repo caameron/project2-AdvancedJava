@@ -27,7 +27,7 @@ public class TextDumper<T extends AbstractAppointmentBook> implements Appointmen
         //seperating the owner and all appointments by a new line delimeter
         //using '@' char to seperate arguments
         try {
-            stringBuilder.append(abstractAppointmentBook.getOwnerName() + '\n');
+            stringBuilder.append(abstractAppointmentBook.getOwnerName()).append('\n');
 
             //Attach appointments
             for (Appointment appointment : appointments) {
