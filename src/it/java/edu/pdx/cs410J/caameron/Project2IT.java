@@ -59,7 +59,7 @@ public class Project2IT extends InvokeMainTestCase {
    @Test
     public void readMestillPrintsEvenifAftertextFileOption() {
         MainMethodResult result = invokeMain("-print", "-textFile", "-README", "Brian Griffin", "Trip to the dentist", "02/28/2019", "12:00", "02/29/2000", "15:00");
-        assertThat(result.getTextWrittenToStandardOut(), containsString("Caameron Nakasone\nAdvanced Programming in Java\n"));
+        assertThat(result.getTextWrittenToStandardOut(), containsString("Trip to the dentist"));
         assertThat(result.getExitCode(), equalTo(0));
     }
 

@@ -52,6 +52,14 @@ public class Project2 {
 //          System.err.println("Did not provide a name for the output file, please pass one in the form of -textFile <file name>");
 //          System.exit(1);
 //      }
+
+      if(getNext == true)
+      {
+          getNext = false;
+          fileName = arg;
+          continue;
+      }
+
       if(arg.charAt(0) == '-' && stopOptionflag == true)
       {
         options.add(arg);
