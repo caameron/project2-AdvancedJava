@@ -40,7 +40,7 @@ public class Appointment extends AbstractAppointment {
    * @param description
    *        Description about the appointment being made.
    */
-  public Appointment(String startDate, String startTime, String endDate, String endTime, String description) {
+  public Appointment(String startDate, String startTime, String endDate, String endTime, String description) throws Exception {
     //Check that the times and dates are in the correct format mm/dd/yyyy
     this.startDate = startDate;
     this.startTime = startTime;
@@ -56,23 +56,20 @@ public class Appointment extends AbstractAppointment {
     Matcher matcher = pattern.matcher(startAppt);
     if( matcher.matches() == false)
     {
-      System.err.println("Date and Time format incorrect. Must be of format dd/mm/yyyy hh:mm");
-      System.exit(1);
+      throw new Exception("Date and Time format incorrect. Must be of format dd/mm/yyyy hh:mm");
     }
 
     matcher = pattern.matcher(endAppt);
     if( matcher.matches() == false)
     {
-      System.err.println("Date and Time format incorrect. Must be of format dd/mm/yyyy hh:mm");
-      System.exit(1);
+      throw new Exception("Date and Time format incorrect. Must be of format dd/mm/yyyy hh:mm");
     }
 
 
 
-    if(description == null || description.isEmpty() == true)
+    if(description == null || description.isEmpty() == true || startDate.isEmpty() == true || startTime.isEmpty() == true || endDate.isEmpty() == true || endTime.isEmpty() == true)
     {
-      System.err.println("Description cannot be empty or null");
-      System.exit(1);
+      throw new Exception("Description cannot be empty or null");
     }
     this.description = description;
   }

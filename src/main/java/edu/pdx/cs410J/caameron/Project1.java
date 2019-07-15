@@ -135,8 +135,14 @@ public class Project1 {
 
     //There are the correct amount of arguments now create appointmentBook and appointment. Then add appointment to appointmentBook
     AppointmentBook apptBook = new AppointmentBook(owner);
-    Appointment appt = new Appointment(beginDate, beginTime, endDate, endTime, description);
-    apptBook.addAppointment(appt);
+      Appointment appt = null;
+      try {
+          appt = new Appointment(beginDate, beginTime, endDate, endTime, description);
+      } catch (Exception e) {
+          System.err.println(e.getMessage());
+          System.exit(1);
+      }
+      apptBook.addAppointment(appt);
 
     //Check for print flag and print out appointment if it is there
     for (Object option : options)

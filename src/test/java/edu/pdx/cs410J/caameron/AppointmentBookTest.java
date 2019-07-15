@@ -28,7 +28,7 @@ public class AppointmentBookTest {
     }
 
     @Test
-    public void ifThereIsAtleastOneAppointmentReturnAppointmentsCollection() {
+    public void ifThereIsAtleastOneAppointmentReturnAppointmentsCollection() throws Exception {
         AppointmentBook appointmentBook = new AppointmentBook(testOwner);
         Appointment appointment = new Appointment("12/12/1212", "12:12", "12/12/1212", "12:12", "TestDescription");
         appointmentBook.addAppointment(appointment);
@@ -39,7 +39,7 @@ public class AppointmentBookTest {
     }
 
     @Test
-    public void addingAnAppointmentDoesNotThrowAnError() {
+    public void addingAnAppointmentDoesNotThrowAnError() throws Exception {
         AppointmentBook appointmentBook = new AppointmentBook(testOwner);
         Appointment appointment = new Appointment("12/12/1212", "12:12", "12/12/1212", "12:12", "TestDescription");
         appointmentBook.addAppointment(appointment);

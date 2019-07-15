@@ -88,7 +88,7 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
 
                 String [] begSplit = split[1].split(" ");
                 String [] endSplit = split[2].split(" ");
-                if(begSplit.length!= 2 && endSplit.length != 2)
+                if(begSplit.length!= 2 || endSplit.length != 2)
                 {
                     malformatted = true;
                     break;
@@ -115,6 +115,10 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
         }
         catch (Exception err)
         {
+            if(err.getMessage().equals("Date and Time format incorrect. Must be of format dd/mm/yyyy hh:mm") || err.getMessage().equals("Description cannot be empty or null"))
+            {
+                throw new ParserException("Malformatted text file: " + err.getMessage());
+            }
             throw new ParserException("No text file with that name exists, creating new file " + fileName);
         }
 

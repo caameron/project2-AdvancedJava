@@ -169,11 +169,15 @@ public class Project2 {
 
     //There are the correct amount of arguments now create appointmentBook and appointment. Then add appointment to appointmentBook
     AppointmentBook apptBook;
-//    AppointmentBook apptBook = new AppointmentBook(owner);
-    Appointment appt = new Appointment(beginDate, beginTime, endDate, endTime, description);
-//    apptBook.addAppointment(appt);
+      Appointment appt = null;
+      try {
+          appt = new Appointment(beginDate, beginTime, endDate, endTime, description);
+      } catch (Exception e) {
+          System.err.println(e.getMessage());
+          System.exit(1);
+      }
 
-    //Check if the option to read and write to a file are there
+      //Check if the option to read and write to a file are there
     //Write out appointmentbook to text file
 
     if(printAndWrite)

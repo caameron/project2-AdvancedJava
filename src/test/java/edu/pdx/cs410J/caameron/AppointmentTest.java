@@ -18,31 +18,31 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class AppointmentTest {
 
   @Test
-  public void getBeginTimeStringNeedsToBeImplemented() {
+  public void getBeginTimeStringNeedsToBeImplemented() throws Exception {
     Appointment appointment = new Appointment("12/12/1212", "12:12", "12/12/1212", "12:12", "TestDescription");
     appointment.getBeginTimeString();
   }
 
   @Test
-  public void initiallyAllAppointmentsHaveTheSameDescription() {
+  public void initiallyAllAppointmentsHaveTheSameDescription() throws Exception {
     Appointment appointment = new Appointment("12/12/1212", "12:12", "12/12/1212", "12:12", "TestDescription");
     assertThat(appointment.getDescription(), containsString("TestDescription"));
   }
 
   @Test
-  public void forProject1ItIsOkayIfGetBeginTimeReturnsNull() {
+  public void forProject1ItIsOkayIfGetBeginTimeReturnsNull() throws Exception {
     Appointment appointment = new Appointment("12/12/1212", "12:12", "12/12/1212", "12:12", "TestDescription");
     assertThat(appointment.getBeginTime(), is(nullValue()));
   }
 
   @Test
-  public void getBeginTimeStringReturnsCorrectDate() {
+  public void getBeginTimeStringReturnsCorrectDate() throws Exception {
     Appointment appointment = new Appointment("12/12/1212", "12:12", "12/12/1212", "12:12", "TestDescription");
     assertThat(appointment.getBeginTimeString(), containsString("12/12/1212 12:12"));
   }
 
   @Test
-  public void getEndTimeStringReturnsCorrectDate() {
+  public void getEndTimeStringReturnsCorrectDate() throws Exception {
     Appointment appointment = new Appointment("12/12/1212", "12:12", "12/12/1212", "12:12", "TestDescription");
     assertThat(appointment.getEndTimeString(), containsString("12/12/1212 12:12"));
   }

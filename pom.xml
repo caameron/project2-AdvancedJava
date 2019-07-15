@@ -7,7 +7,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.pdx.cs410J.caameron</groupId>
-  <artifactId>textfile</artifactId>
+  <artifactId>apptbook</artifactId>
   <packaging>jar</packaging>
   <version>Summer2019</version>
   <name>CS410J Appointment Book Project</name>
