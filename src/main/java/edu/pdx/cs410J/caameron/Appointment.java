@@ -2,6 +2,7 @@ package edu.pdx.cs410J.caameron;
 
 import edu.pdx.cs410J.AbstractAppointment;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,6 +22,8 @@ public class Appointment extends AbstractAppointment {
   private String endTime;
   private String startTime;
   private String description;
+  private Date startTimeDate;
+  private Date endTimeDate;
 
   //Constructor for Appointment Class. The class should take in three arguments
   //A beginning time, ending time, and a description.
@@ -30,6 +33,7 @@ public class Appointment extends AbstractAppointment {
    * also checks for errors in the start and end time by making sure they are in the correct format. A
    * regular expression is used to check for incorrect formatting. The description is also checked to make
    * sure that a null or empty String has been passed in.
+   * Also takes in the dates and times and converts them to Date objects
    * @param startDate
    *        The date at which the appointment is scheduled to begin. Format: mm/dd/yyyy
    * @param startTime
@@ -66,6 +70,23 @@ public class Appointment extends AbstractAppointment {
       throw new Exception("Date and Time format incorrect. Must be of format dd/mm/yyyy hh:mm");
     }
 
+    //Set date and time to Date objects
+    //Convert to ints
+//    String[] splitDate = startDate.split("/");
+//    String[] splitTime = startTime.split(":");
+//    int year, month, date, hrs, min;
+//    year = Integer.parseInt(splitDate[2]);
+//    month = Integer.parseInt(splitDate[1]);
+//    date = Integer.parseInt(splitDate[0]);
+//    hrs = Integer.parseInt(splitTime[0]);
+//    min = Integer.parseInt(splitDate[1]);
+//    Calendar cal = Calendar.getInstance();
+//    cal.set(Calendar.YEAR, year);
+//    cal.set(Calendar.MONTH, month);
+//    cal.set(Calendar.DAY_OF_MONTH, date);
+//    cal.set(Calendar.HOUR_OF_DAY)
+//    startTimeDate = new Date(year, month, date, hrs, min);
+
 
 
     if(description == null || description.isEmpty() == true || startDate.isEmpty() == true || startTime.isEmpty() == true || endDate.isEmpty() == true || endTime.isEmpty() == true)
@@ -73,6 +94,8 @@ public class Appointment extends AbstractAppointment {
       throw new Exception("Description cannot be empty or null");
     }
     this.description = description;
+
+
   }
 
   /**
@@ -108,7 +131,7 @@ public class Appointment extends AbstractAppointment {
    */
   @Override
   public Date getBeginTime() {
-
+    return startTimeDate;
   }
 
   /**
@@ -117,6 +140,6 @@ public class Appointment extends AbstractAppointment {
    */
   @Override
   public Date getEndTime() {
-
+    return endTimeDate;
   }
 }

@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Project3 {
     /**
-     * The main method will handle the command line parsing for project 2 as well as some error handling.
+     * The main method will handle the command line parsing for project 3 as well as some error handling.
      * It will store the command line arguments in two ArrayLists one for arguments and one for options.
      * It will check for the correct formatting of some of the arguments and if there are the correct
      * number of arguments. If there are options sent in it will invoke their corresponding actions.
