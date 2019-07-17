@@ -22,6 +22,8 @@ public class Appointment extends AbstractAppointment {
   private String endTime;
   private String startTime;
   private String description;
+  private String startTimeOfDay;
+  private String endTimeOfDay;
   private Date startTimeDate;
   private Date endTimeDate;
 
@@ -44,13 +46,21 @@ public class Appointment extends AbstractAppointment {
    *        The time of day at which the appointment is scheduled to end. Format: hh:mm
    * @param description
    *        Description about the appointment being made.
+   * @param startTimeOfDay
+   *        am or pm of start time
+   * @param endTimeOfDay
+   *        am or pm of end time
+   *
    */
-  public Appointment(String startDate, String startTime, String endDate, String endTime, String description) throws Exception {
+  public Appointment(String startDate, String startTime, String endDate, String endTime, String description, String startTimeOfDay, String endTimeOfDay) throws Exception {
     //Check that the times and dates are in the correct format mm/dd/yyyy
     this.startDate = startDate;
     this.startTime = startTime;
     this.endDate = endDate;
     this.endTime = endTime;
+    this.startTimeOfDay = startTimeOfDay;
+    this.endTimeOfDay = endTimeOfDay;
+
 
     String startAppt = startDate + " " + startTime;
     String endAppt = endDate + " " + endTime;
@@ -70,23 +80,63 @@ public class Appointment extends AbstractAppointment {
       throw new Exception("Date and Time format incorrect. Must be of format dd/mm/yyyy hh:mm");
     }
 
+    //Check that it is am or pm
+    if(!startTimeOfDay.toLowerCase().equals("am") || !startTimeOfDay.toLowerCase().equals("pm"))
+    {
+      throw new Exception("Start time of day is not am or pm. Please Specify 'am' or 'pm'");
+    }
+
+    if(!(endTimeOfDay.toLowerCase().equals("am")) || !(endTimeOfDay.toLowerCase().equals("pm")))
+    {
+      throw new Exception("End time of day is not am or pm. Please Specify 'am' or 'pm'");
+    }
+
     //Set date and time to Date objects
     //Convert to ints
-//    String[] splitDate = startDate.split("/");
-//    String[] splitTime = startTime.split(":");
-//    int year, month, date, hrs, min;
-//    year = Integer.parseInt(splitDate[2]);
-//    month = Integer.parseInt(splitDate[1]);
-//    date = Integer.parseInt(splitDate[0]);
-//    hrs = Integer.parseInt(splitTime[0]);
-//    min = Integer.parseInt(splitDate[1]);
-//    Calendar cal = Calendar.getInstance();
-//    cal.set(Calendar.YEAR, year);
-//    cal.set(Calendar.MONTH, month);
-//    cal.set(Calendar.DAY_OF_MONTH, date);
-//    cal.set(Calendar.HOUR_OF_DAY)
-//    startTimeDate = new Date(year, month, date, hrs, min);
+    String[] splitDate = startDate.split("/");
+    String[] splitTime = startTime.split(":");
+    int year, month, date, hrs, min;
+    year = Integer.parseInt(splitDate[2]);
+    month = Integer.parseInt(splitDate[1]);
+    date = Integer.parseInt(splitDate[0]);
+    hrs = Integer.parseInt(splitTime[0]);
+    min = Integer.parseInt(splitTime[1]);
+    Calendar calStart = Calendar.getInstance();
+    calStart.set(Calendar.YEAR, year);
+    calStart.set(Calendar.MONTH, month);
+    calStart.set(Calendar.DAY_OF_MONTH, date);
+    calStart.set(Calendar.HOUR, hrs);
+    calStart.set(Calendar.MINUTE, min);
+    if(startTimeOfDay.toLowerCase().equals("am") == true)
+    {
+      calStart.set(Calendar.AM_PM, Calendar.AM);
+    }
+    else
+    {
+      calStart.set(Calendar.AM_PM, Calendar.PM);
+    }
 
+    String[] splitDateEnd = endDate.split("/");
+    String[] splitTimeEnd = endTime.split(":");
+    year = Integer.parseInt(splitDateEnd[2]);
+    month = Integer.parseInt(splitDateEnd[1]);
+    date = Integer.parseInt(splitDateEnd[0]);
+    hrs = Integer.parseInt(splitTimeEnd[0]);
+    min = Integer.parseInt(splitTimeEnd[1]);
+    Calendar calEnd = Calendar.getInstance();
+    calEnd.set(Calendar.YEAR, year);
+    calEnd.set(Calendar.MONTH, month);
+    calEnd.set(Calendar.DAY_OF_MONTH, date);
+    calEnd.set(Calendar.HOUR, hrs);
+    calEnd.set(Calendar.MINUTE, min);
+    if(endTimeOfDay.toLowerCase().equals("am") == true)
+    {
+      calStart.set(Calendar.AM_PM, Calendar.AM);
+    }
+    else
+    {
+      calStart.set(Calendar.AM_PM, Calendar.PM);
+    }
 
 
     if(description == null || description.isEmpty() == true || startDate.isEmpty() == true || startTime.isEmpty() == true || endDate.isEmpty() == true || endTime.isEmpty() == true)

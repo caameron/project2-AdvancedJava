@@ -98,7 +98,7 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
                 beginTime = begSplit[1];
                 endDate = endSplit[0];
                 endTime = endSplit[1];
-                Appointment appt = new Appointment(beginDate, beginTime, endDate, endTime, description);
+                Appointment appt = new Appointment(beginDate, beginTime, endDate, endTime, description, "am", "pm");
                 returnBook.addAppointment(appt);
             }
 

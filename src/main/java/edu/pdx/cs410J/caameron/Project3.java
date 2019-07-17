@@ -101,7 +101,7 @@ public class Project3 {
 
         //Check that the correct amount of arguments have been passed in  keeping in mind that they can add the options tag if they
         //Choose to do so.
-        if(arguments.size() != 6)
+        if(arguments.size() != 8)
         {
             System.err.println("Did not give the correct arguments to command line. There must be a 6 arguments - owner, description, beginDate, beginTime, endDate, endTime");
             System.exit(1);
@@ -113,6 +113,8 @@ public class Project3 {
         String beginTime = (arguments.get(3)).toString();
         String endDate = (arguments.get(4)).toString();
         String endTime = (arguments.get(5)).toString();
+        String beginTimeOfDay = (arguments.get(6).toString());
+        String endTimeOfDay = (arguments.get(7).toString());
 
         try {
 
@@ -162,7 +164,7 @@ public class Project3 {
         AppointmentBook apptBook;
         Appointment appt = null;
         try {
-            appt = new Appointment(beginDate, beginTime, endDate, endTime, description);
+            appt = new Appointment(beginDate, beginTime, endDate, endTime, description, beginTimeOfDay, endTimeOfDay);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             System.exit(1);
