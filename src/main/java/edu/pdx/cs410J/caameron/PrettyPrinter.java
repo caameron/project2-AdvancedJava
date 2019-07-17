@@ -54,14 +54,20 @@ public class PrettyPrinter<T extends AbstractAppointmentBook> implements Appoint
                 long minutesBetween = between.toMinutes();
                 stringBuilder.append("Appointment #" + counter + ": " + appointment.getDescription() + "\n");
                 stringBuilder.append("Appointment starts at : " + appointment.getBeginTimeString() + "   ");
-                stringBuilder.append("Appointment ends at : "+ appointment.getEndTimeString() + "'\n");
+                stringBuilder.append("Appointment ends at : "+ appointment.getEndTimeString() + "\n");
                 stringBuilder.append("Duration of appointment: " + minutesBetween + " minutes\n\n");
                 ++counter;
             }
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-            writer.write(stringBuilder.toString());
-            writer.close();
+            if(filename.equals("-"))
+            {
+                System.out.println(stringBuilder);
+            }
+            else {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+                writer.write(stringBuilder.toString());
+                writer.close();
+            }
         }
         catch (Exception err)
         {
