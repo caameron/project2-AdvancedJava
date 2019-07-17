@@ -7,15 +7,32 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class PrettyPrinter implements AppointmentBookDumper {
+/**
+ * PrettyPrinter class that implements AppointmentBookDumper. Its method will take the content of an appointment book
+ * and create a nicely formatted textual representation of it.
+ * @param <T> AppointmentBook Class
+ */
+public class PrettyPrinter<T extends AbstractAppointmentBook> implements AppointmentBookDumper {
     private AppointmentBook<Appointment> apptBook;
     private String filename;
 
+    /**
+     * Creates a new PrettyPrinter instance. Takes in the file name of the file which will contain the content
+     * of the appointment book and the instance of the appointment book that will be converted to a nicely formatted
+     * textual representation
+     * @param apptBook AppointmentBook instance to be printed
+     * @param filename Name of file that will contain printed appointment book
+     */
     public PrettyPrinter(AppointmentBook apptBook, String filename) {
         this.apptBook = apptBook;
         this.filename = filename;
     }
 
+    /**
+     * Method to create a new file and dump the content of an appointment book to it in a nice textual representation
+     * @param abstractAppointmentBook The appointment book's content that will be written out to a text file
+     * @throws IOException Will throw an exception if unable to create or write out to a text file
+     */
     @Override
     public void dump(AbstractAppointmentBook abstractAppointmentBook) throws IOException {
         try {

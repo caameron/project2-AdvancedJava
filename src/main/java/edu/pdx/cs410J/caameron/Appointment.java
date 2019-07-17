@@ -2,6 +2,7 @@ package edu.pdx.cs410J.caameron;
 
 import edu.pdx.cs410J.AbstractAppointment;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -75,7 +76,7 @@ public class Appointment extends AbstractAppointment {
   }
 
   /**
-   * Method to return the  beginning time and date of the appointment.
+   * Method to return the  beginning time and date of the appointment using DateFormat.SHORT
    * @return Returns the startDate and startTime concatenated
    */
   @Override
@@ -84,7 +85,7 @@ public class Appointment extends AbstractAppointment {
   }
 
   /**
-   * Method to return the ending time and date of the appointment.
+   * Method to return the ending time and date of the appointment using DateFormat.SHORT
    * @return Returns the endDate and endTime concatenated
    */
   @Override
@@ -99,5 +100,23 @@ public class Appointment extends AbstractAppointment {
   @Override
   public String getDescription() {
     return description;
+  }
+
+  /**
+   * Method to return the beginning time in a Date object
+   * @return Returns Data object of beginning time
+   */
+  @Override
+  public Date getBeginTime() {
+
+  }
+
+  /**
+   * Method to return the ending time in a Date object
+   * @return Returns Date object of ending time
+   */
+  @Override
+  public Date getEndTime() {
+
   }
 }
