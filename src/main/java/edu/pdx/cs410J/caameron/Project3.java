@@ -186,7 +186,6 @@ public class Project3 {
                     System.out.println(err.getMessage());
                     System.exit(1);
                 }
-                System.out.println(err.getMessage());
                 apptBook = new AppointmentBook(owner);
             }
             apptBook.addAppointment(appt);
@@ -210,10 +209,10 @@ public class Project3 {
         {
             if(option.toString().equals("-print"))
             {
-                ArrayList appointments = apptBook.getAppointments();
-                int size = appointments.size();
-                Appointment appointment = (Appointment) appointments.get(size - 1);
-                System.out.println(appointment.toString());
+//                ArrayList appointments = apptBook.getAppointments();
+//                int size = appointments.size();
+//                Appointment appointment = (Appointment) appointments.get(size - 1);
+                System.out.println(appt.toString());
                 System.exit(0);
             }
         }

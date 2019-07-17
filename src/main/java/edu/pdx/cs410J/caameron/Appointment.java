@@ -235,7 +235,6 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
     int comparison = startTimeDate.compareTo(o.getBeginTime());
     if(comparison == 0)
     {
-      System.out.println("BEGINING DATE THE SAME");
       comparison = endTimeDate.compareTo(o.getEndTime());
       //check for ending date comparison
       if (comparison == 0) {
