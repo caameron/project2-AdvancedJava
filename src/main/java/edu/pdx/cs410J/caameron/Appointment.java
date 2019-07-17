@@ -104,7 +104,7 @@ public class Appointment extends AbstractAppointment {
     min = Integer.parseInt(splitTime[1]);
     Calendar calStart = Calendar.getInstance();
     calStart.set(Calendar.YEAR, year);
-    calStart.set(Calendar.MONTH, month);
+    calStart.set(Calendar.MONTH, month-1);
     calStart.set(Calendar.DAY_OF_MONTH, date);
     calStart.set(Calendar.HOUR, hrs);
     calStart.set(Calendar.MINUTE, min);
@@ -126,7 +126,7 @@ public class Appointment extends AbstractAppointment {
     min = Integer.parseInt(splitTimeEnd[1]);
     Calendar calEnd = Calendar.getInstance();
     calEnd.set(Calendar.YEAR, year);
-    calEnd.set(Calendar.MONTH, month);
+    calEnd.set(Calendar.MONTH, month-1);
     calEnd.set(Calendar.DAY_OF_MONTH, date);
     calEnd.set(Calendar.HOUR, hrs);
     calEnd.set(Calendar.MINUTE, min);
@@ -139,8 +139,11 @@ public class Appointment extends AbstractAppointment {
       calEnd.set(Calendar.AM_PM, Calendar.PM);
     }
 
-    System.out.println(calEnd.toString());
-    System.out.printf(calStart.toString());
+    startTimeDate = calStart.getTime();
+    endTimeDate = calEnd.getTime();
+    System.out.println(calStart.YEAR + "    "+ calStart.MONTH + "  " + calStart.DAY_OF_MONTH + "   " + calStart.HOUR + "   " + calStart.HOUR + "  " + calStart.MINUTE);
+    System.out.println(startTimeDate);
+    System.out.println(endTimeDate);
 
     if(description == null || description.isEmpty() == true || startDate.isEmpty() == true || startTime.isEmpty() == true || endDate.isEmpty() == true || endTime.isEmpty() == true)
     {
