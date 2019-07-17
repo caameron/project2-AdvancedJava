@@ -137,7 +137,7 @@ public class Project1 {
     AppointmentBook apptBook = new AppointmentBook(owner);
       Appointment appt = null;
       try {
-          appt = new Appointment(beginDate, beginTime, endDate, endTime, description);
+          appt = new Appointment(beginDate, beginTime, endDate, endTime, description, "am", "pm");
       } catch (Exception e) {
           System.err.println(e.getMessage());
           System.exit(1);

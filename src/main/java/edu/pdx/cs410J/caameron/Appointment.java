@@ -2,6 +2,7 @@ package edu.pdx.cs410J.caameron;
 
 import edu.pdx.cs410J.AbstractAppointment;
 
+import java.sql.CallableStatement;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -81,12 +82,12 @@ public class Appointment extends AbstractAppointment {
     }
 
     //Check that it is am or pm
-    if(!startTimeOfDay.toLowerCase().equals("am") || !startTimeOfDay.toLowerCase().equals("pm"))
+    if(!(startTimeOfDay.toLowerCase().equals("am")) && !(startTimeOfDay.toLowerCase().equals("pm")))
     {
       throw new Exception("Start time of day is not am or pm. Please Specify 'am' or 'pm'");
     }
 
-    if(!(endTimeOfDay.toLowerCase().equals("am")) || !(endTimeOfDay.toLowerCase().equals("pm")))
+    if(!(endTimeOfDay.toLowerCase().equals("am")) && !(endTimeOfDay.toLowerCase().equals("pm")))
     {
       throw new Exception("End time of day is not am or pm. Please Specify 'am' or 'pm'");
     }
@@ -131,13 +132,15 @@ public class Appointment extends AbstractAppointment {
     calEnd.set(Calendar.MINUTE, min);
     if(endTimeOfDay.toLowerCase().equals("am") == true)
     {
-      calStart.set(Calendar.AM_PM, Calendar.AM);
+      calEnd.set(Calendar.AM_PM, Calendar.AM);
     }
     else
     {
-      calStart.set(Calendar.AM_PM, Calendar.PM);
+      calEnd.set(Calendar.AM_PM, Calendar.PM);
     }
 
+    System.out.println(calEnd.toString());
+    System.out.printf(calStart.toString());
 
     if(description == null || description.isEmpty() == true || startDate.isEmpty() == true || startTime.isEmpty() == true || endDate.isEmpty() == true || endTime.isEmpty() == true)
     {

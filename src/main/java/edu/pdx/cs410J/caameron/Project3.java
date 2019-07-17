@@ -111,9 +111,9 @@ public class Project3 {
         String description = (arguments.get(1)).toString();
         String beginDate = (arguments.get(2)).toString();
         String beginTime = (arguments.get(3)).toString();
-        String endDate = (arguments.get(4)).toString();
-        String endTime = (arguments.get(5)).toString();
-        String beginTimeOfDay = (arguments.get(6).toString());
+        String beginTimeOfDay = (arguments.get(4).toString());
+        String endDate = (arguments.get(5)).toString();
+        String endTime = (arguments.get(6)).toString();
         String endTimeOfDay = (arguments.get(7).toString());
 
         try {
