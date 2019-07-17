@@ -6,6 +6,12 @@ import edu.pdx.cs410J.AppointmentBookDumper;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * PrettyPrinter class that implements AppointmentBookDumper. Its method will take the content of an appointment book
@@ -13,18 +19,15 @@ import java.io.IOException;
  * @param <T> AppointmentBook Class
  */
 public class PrettyPrinter<T extends AbstractAppointmentBook> implements AppointmentBookDumper {
-    private AppointmentBook<Appointment> apptBook;
     private String filename;
 
     /**
      * Creates a new PrettyPrinter instance. Takes in the file name of the file which will contain the content
      * of the appointment book and the instance of the appointment book that will be converted to a nicely formatted
      * textual representation
-     * @param apptBook AppointmentBook instance to be printed
      * @param filename Name of file that will contain printed appointment book
      */
-    public PrettyPrinter(AppointmentBook apptBook, String filename) {
-        this.apptBook = apptBook;
+    public PrettyPrinter(String filename) {
         this.filename = filename;
     }
 
@@ -36,12 +39,24 @@ public class PrettyPrinter<T extends AbstractAppointmentBook> implements Appoint
     @Override
     public void dump(AbstractAppointmentBook abstractAppointmentBook) throws IOException {
         try {
-
+            AbstractAppointmentBook<Appointment> apptBook = abstractAppointmentBook;
+            Collection<Appointment> appointments = apptBook.getAppointments();
             StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("Appointment Book for ").append(abstractAppointmentBook.getOwnerName()).append("\n");
+            stringBuilder.append("Appointments Listed from earliest to latest\n\n");
 
             //Pretty Print all the appointments and the owner name
-            for (Appointment appointment : apptBook.getAppointments()) {
-                stringBuilder.append(appointment.toString());
+            int counter = 1;
+            for (Appointment appointment : appointments) {
+                LocalDateTime begin = appointment.getBeginTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+                LocalDateTime end = appointment.getEndTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+                Duration between = Duration.between(begin, end);
+                long minutesBetween = between.toMinutes();
+                stringBuilder.append("Appointment #" + counter + ": " + appointment.getDescription() + "\n");
+                stringBuilder.append("Appointment starts at : " + appointment.getBeginTimeString() + "   ");
+                stringBuilder.append("Appointment ends at : "+ appointment.getEndTimeString() + "'\n");
+                stringBuilder.append("Duration of appointment: " + minutesBetween + " minutes\n\n");
+                ++counter;
             }
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename));

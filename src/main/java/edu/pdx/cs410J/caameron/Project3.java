@@ -1,6 +1,7 @@
 package edu.pdx.cs410J.caameron;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class Project3 {
      */
         //Create variable to hold file name if given
         String fileName = "";
+        String fileNamePretty = "";
 
         //Parse the arguments sent in into arguments for the program and options (options start with '-')
         List arguments = new ArrayList();
@@ -37,6 +39,8 @@ public class Project3 {
         boolean stopOptionflag = true;
         boolean getNext = false;
         boolean printAndWrite = false;
+        boolean getNextPretty = false;
+        boolean prettyWrite = false;
         for (String arg : args) {
             if(arg.isEmpty() == true)
             {
@@ -51,6 +55,13 @@ public class Project3 {
                 continue;
             }
 
+            if(getNextPretty == true)
+            {
+                getNextPretty = false;
+                fileNamePretty = arg;
+                continue;
+            }
+
             if(arg.charAt(0) == '-' && stopOptionflag == true)
             {
                 options.add(arg);
@@ -59,11 +70,21 @@ public class Project3 {
                     printAndWrite = true;
                     getNext = true;
                 }
+                else if(arg.equals("-pretty"))
+                {
+                    prettyWrite = true;
+                    getNextPretty = true;
+                }
             }
             else if (getNext == true)
             {
                 getNext = false;
                 fileName = arg;
+            }
+            else if (getNextPretty == true)
+            {
+                getNextPretty = false;
+                fileNamePretty = arg;
             }
             else {
                 arguments.add(arg);
@@ -92,7 +113,7 @@ public class Project3 {
         }
 
         for (Object option : options) {
-            if (!(option.toString().equals("-README")) && !(option.toString().equals("-print")) && !(option.toString().equals("-textFile"))) {
+            if (!(option.toString().equals("-README")) && !(option.toString().equals("-print")) && !(option.toString().equals("-textFile")) && !(option.toString().equals("-pretty"))) {
                 System.err.println("Option not recognized. Available options are : -README  -print textFile <file>");
                 System.exit(1);
             }
@@ -203,6 +224,17 @@ public class Project3 {
             apptBook = new AppointmentBook(owner);
             apptBook.addAppointment(appt);
         }
+
+        if(prettyWrite)
+        {
+            PrettyPrinter prettyPrinter = new PrettyPrinter(fileNamePretty);
+            try {
+                prettyPrinter.dump(apptBook);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
 
         //Check for print flag and print out appointment if it is there
         for (Object option : options)
