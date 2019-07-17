@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.lang.Comparable;
 
 /**
  * Appointment class which will represent a single appointment and some of the details that belong with it
@@ -15,7 +16,7 @@ import java.util.regex.Pattern;
  * This class extends AbstractAppointment. All data members of the class are represented using Strings. For now
  * the class only sets all the data in the constructor and uses methods to get the values when needed.
  */
-public class Appointment extends AbstractAppointment {
+public class Appointment extends AbstractAppointment implements Comparable<Appointment>{
 
   //Data members for Appointment class, will have variables for
   //start, end and description
@@ -142,12 +143,12 @@ public class Appointment extends AbstractAppointment {
 
     startTimeDate = calStart.getTime();
     endTimeDate = calEnd.getTime();
-    System.out.println(startTimeDate);
-    System.out.println(endTimeDate);
-    System.out.println(DateFormat.getDateInstance(DateFormat.SHORT).format(startTimeDate));
-    System.out.println(DateFormat.getTimeInstance(DateFormat.SHORT).format(startTimeDate));
-    System.out.println(DateFormat.getDateInstance(DateFormat.SHORT).format(endTimeDate));
-    System.out.println(DateFormat.getTimeInstance(DateFormat.SHORT).format(endTimeDate));
+//    System.out.println(startTimeDate);
+//    System.out.println(endTimeDate);
+//    System.out.println(DateFormat.getDateInstance(DateFormat.SHORT).format(startTimeDate));
+//    System.out.println(DateFormat.getTimeInstance(DateFormat.SHORT).format(startTimeDate));
+//    System.out.println(DateFormat.getDateInstance(DateFormat.SHORT).format(endTimeDate));
+//    System.out.println(DateFormat.getTimeInstance(DateFormat.SHORT).format(endTimeDate));
 
     if(description == null || description.isEmpty() == true || startDate.isEmpty() == true || startTime.isEmpty() == true || endDate.isEmpty() == true || endTime.isEmpty() == true)
     {
@@ -219,5 +220,30 @@ public class Appointment extends AbstractAppointment {
    */
   public String getEndTimeFile() {
     return endDate + " " + endTime + " " + endTimeOfDay;
+  }
+
+  /**
+   * Method to compare one appointment to another in order to sort by chronologically/lexigraphically.
+   * @param o Appointment to be compared
+   * @return int that will represent if appointment is before, after, or equal to another appointment
+   *         -1 : before appointment
+   *         1  : after appointment
+   *         0  : same time and description
+   */
+  @Override
+  public int compareTo(Appointment o) {
+    int comparison = startTimeDate.compareTo(o.getBeginTime());
+    if(comparison == 0)
+    {
+      System.out.println("BEGINING DATE THE SAME");
+      comparison = endTimeDate.compareTo(o.getEndTime());
+      //check for ending date comparison
+      if (comparison == 0) {
+        //Check for description
+        comparison = description.compareTo(o.getDescription());
+      }
+    }
+
+    return comparison;
   }
 }

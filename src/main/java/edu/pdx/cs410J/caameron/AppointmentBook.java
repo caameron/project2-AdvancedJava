@@ -6,6 +6,7 @@ import edu.pdx.cs410J.AbstractAppointmentBook;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.io.Serializable;
+import java.util.Collections;
 
 /**
  * Appointment Book class that holds a Collection of appointments and the name of the owner of the book
@@ -83,6 +84,7 @@ public class AppointmentBook<T extends Appointment> extends AbstractAppointmentB
             appointments = new ArrayList<>();
         }
         appointments.add((Appointment) appointment);
+        Collections.sort(appointments);
     }
 
 }
