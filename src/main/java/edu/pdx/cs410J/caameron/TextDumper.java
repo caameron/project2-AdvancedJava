@@ -51,7 +51,7 @@ public class TextDumper<T extends AbstractAppointmentBook> implements Appointmen
             //Attach appointments
             for (Appointment appointment : appointments) {
                 StringBuilder appt = new StringBuilder();
-                appt.append(appointment.getDescription() + '@' + appointment.getBeginTimeString() + '@' + appointment.getEndTimeString() + '\n');
+                appt.append(appointment.getDescription() + '@' + appointment.getBeginTimeFile() + '@' + appointment.getEndTimeFile() + '\n');
                 stringBuilder.append(appt);
             }
 

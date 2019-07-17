@@ -74,8 +74,10 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
                 String description;
                 String beginTime;
                 String beginDate;
+                String beginTimeOfDay;
                 String endTime;
                 String endDate;
+                String endTimeOfDay;
 
                 String [] split = line.split("@");
                 if(split.length != 3)
@@ -88,7 +90,7 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
 
                 String [] begSplit = split[1].split(" ");
                 String [] endSplit = split[2].split(" ");
-                if(begSplit.length!= 2 || endSplit.length != 2)
+                if(begSplit.length!= 3 || endSplit.length != 3)
                 {
                     malformatted = true;
                     break;
@@ -96,9 +98,11 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
 
                 beginDate = begSplit[0];
                 beginTime = begSplit[1];
+                beginTimeOfDay = begSplit[2];
                 endDate = endSplit[0];
                 endTime = endSplit[1];
-                Appointment appt = new Appointment(beginDate, beginTime, endDate, endTime, description, "am", "pm");
+                endTimeOfDay = endSplit[2];
+                Appointment appt = new Appointment(beginDate, beginTime, endDate, endTime, description, beginTimeOfDay, endTimeOfDay);
                 returnBook.addAppointment(appt);
             }
 

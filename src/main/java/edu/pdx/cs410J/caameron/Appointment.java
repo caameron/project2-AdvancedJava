@@ -3,6 +3,7 @@ package edu.pdx.cs410J.caameron;
 import edu.pdx.cs410J.AbstractAppointment;
 
 import java.sql.CallableStatement;
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -67,7 +68,7 @@ public class Appointment extends AbstractAppointment {
     String endAppt = endDate + " " + endTime;
 
     //Check that description is not empty or null using regex
-    String regEx = "^[0-9]?[0-9]/[0-9]?[0-9]/([0-9]{4}) [0-9]?[0-9]:[0-9][0-9]$";
+    String regEx = "^[0-9]?[0-9]/[0-9]?[0-9]/([0-9]{4}) [0-1]?[0-9]:[0-6][0-9]$";
     Pattern pattern = Pattern.compile(regEx);
     Matcher matcher = pattern.matcher(startAppt);
     if( matcher.matches() == false)
@@ -98,8 +99,8 @@ public class Appointment extends AbstractAppointment {
     String[] splitTime = startTime.split(":");
     int year, month, date, hrs, min;
     year = Integer.parseInt(splitDate[2]);
-    month = Integer.parseInt(splitDate[1]);
-    date = Integer.parseInt(splitDate[0]);
+    month = Integer.parseInt(splitDate[0]);
+    date = Integer.parseInt(splitDate[1]);
     hrs = Integer.parseInt(splitTime[0]);
     min = Integer.parseInt(splitTime[1]);
     Calendar calStart = Calendar.getInstance();
@@ -120,8 +121,8 @@ public class Appointment extends AbstractAppointment {
     String[] splitDateEnd = endDate.split("/");
     String[] splitTimeEnd = endTime.split(":");
     year = Integer.parseInt(splitDateEnd[2]);
-    month = Integer.parseInt(splitDateEnd[1]);
-    date = Integer.parseInt(splitDateEnd[0]);
+    month = Integer.parseInt(splitDateEnd[0]);
+    date = Integer.parseInt(splitDateEnd[1]);
     hrs = Integer.parseInt(splitTimeEnd[0]);
     min = Integer.parseInt(splitTimeEnd[1]);
     Calendar calEnd = Calendar.getInstance();
@@ -141,9 +142,12 @@ public class Appointment extends AbstractAppointment {
 
     startTimeDate = calStart.getTime();
     endTimeDate = calEnd.getTime();
-    System.out.println(calStart.YEAR + "    "+ calStart.MONTH + "  " + calStart.DAY_OF_MONTH + "   " + calStart.HOUR + "   " + calStart.HOUR + "  " + calStart.MINUTE);
     System.out.println(startTimeDate);
     System.out.println(endTimeDate);
+    System.out.println(DateFormat.getDateInstance(DateFormat.SHORT).format(startTimeDate));
+    System.out.println(DateFormat.getTimeInstance(DateFormat.SHORT).format(startTimeDate));
+    System.out.println(DateFormat.getDateInstance(DateFormat.SHORT).format(endTimeDate));
+    System.out.println(DateFormat.getTimeInstance(DateFormat.SHORT).format(endTimeDate));
 
     if(description == null || description.isEmpty() == true || startDate.isEmpty() == true || startTime.isEmpty() == true || endDate.isEmpty() == true || endTime.isEmpty() == true)
     {
@@ -160,7 +164,8 @@ public class Appointment extends AbstractAppointment {
    */
   @Override
   public String getBeginTimeString() {
-    return startDate + " " + startTime;
+    String returnString = DateFormat.getDateInstance(DateFormat.SHORT).format(startTimeDate) + " " + DateFormat.getTimeInstance(DateFormat.SHORT).format(startTimeDate);
+    return returnString;
   }
 
   /**
@@ -169,7 +174,8 @@ public class Appointment extends AbstractAppointment {
    */
   @Override
   public String getEndTimeString() {
-    return endDate + " " + endTime;
+    String returnString = DateFormat.getDateInstance(DateFormat.SHORT).format(endTimeDate)+ " " + DateFormat.getTimeInstance(DateFormat.SHORT).format(endTimeDate);
+    return returnString;
   }
 
   /**
@@ -197,5 +203,21 @@ public class Appointment extends AbstractAppointment {
   @Override
   public Date getEndTime() {
     return endTimeDate;
+  }
+
+  /**
+   * Method to return beginning time in a format for the text file
+   * @return Returns String of beginning time
+   */
+  public String getBeginTimeFile() {
+    return startDate + " " + startTime + " " + startTimeOfDay;
+  }
+
+  /**
+   * Method to return ending time in a format for the text file
+   * @return Returns String of ending time
+   */
+  public String getEndTimeFile() {
+    return endDate + " " + endTime + " " + endTimeOfDay;
   }
 }
