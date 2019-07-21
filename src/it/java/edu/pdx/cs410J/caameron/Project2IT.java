@@ -14,7 +14,7 @@ public class Project2IT extends InvokeMainTestCase {
      * Invokes the main method of {@link Project2} with the given arguments.
      */
     private MainMethodResult invokeMain(String... args) {
-        return invokeMain( Project2.class, args );
+        return invokeMain( Project3.class, args );
     }
 
     /**
@@ -23,22 +23,21 @@ public class Project2IT extends InvokeMainTestCase {
 
     @Test
     public void happyPath() {
-        MainMethodResult result = invokeMain("Brian Griffin", "Trip to the dentist", "02/28/2019", "12:00", "02/29/2000", "15:00");
+        MainMethodResult result = invokeMain("Brian Griffin", "Trip to the dentist", "02/28/2019", "12:00", "am", "02/29/2020", "1:00", "pm");
         assertThat(result.getExitCode(), equalTo(0));
-
     }
 
     @Test
     public void happyPathPrint() {
-        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "02/28/2019", "12:00", "02/29/2000", "15:00");
-        assertThat(result.getTextWrittenToStandardOut(), containsString("Trip to the dentist from 02/28/2019 12:00 until 02/29/2000 15:00"));
+        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "02/22/2019", "12:00", "pm", "02/29/2020", "07:00", "pm");
+        assertThat(result.getTextWrittenToStandardOut(), containsString("Trip to the dentist from 2/23/19 12:00 AM until 2/29/20 7:00 PM"));
         assertThat(result.getExitCode(), equalTo(0));
     }
 
     @Test
     public void READEMEinDESCRIPTION() {
-        MainMethodResult result = invokeMain("-print", "Brian Griffin", "-README", "02/28/2019", "12:00", "02/29/2000", "15:00");
-        assertThat(result.getTextWrittenToStandardOut(), containsString("-README from 02/28/2019 12:00 until 02/29/2000 15:00"));
+        MainMethodResult result = invokeMain("-print", "Brian Griffin", "-README", "02/22/2019", "12:00", "pm", "02/29/2020", "07:00", "pm");
+        assertThat(result.getTextWrittenToStandardOut(), containsString("-README from 2/23/19 12:00 AM until 2/29/20 7:00 PM"));
         assertThat(result.getExitCode(), equalTo(0));
     }
 
@@ -58,7 +57,7 @@ public class Project2IT extends InvokeMainTestCase {
 
    @Test
     public void readMestillPrintsEvenifAftertextFileOption() {
-        MainMethodResult result = invokeMain("-print", "-textFile", "-README", "Brian Griffin", "Trip to the dentist", "02/28/2019", "12:00", "02/29/2000", "15:00");
+        MainMethodResult result = invokeMain("-print", "-textFile", "-README", "Brian Griffin", "Trip to the dentist", "02/22/2019", "12:00", "pm", "02/29/2020", "07:00", "pm");
         assertThat(result.getTextWrittenToStandardOut(), containsString("Trip to the dentist"));
         assertThat(result.getExitCode(), equalTo(0));
     }
@@ -121,44 +120,64 @@ public class Project2IT extends InvokeMainTestCase {
 
     @Test
     public void invalidDateGreaterMonth() {
-        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "22/10/2019", "12:00", "02/29/2000", "15:00");
+        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "22/10/2019", "12:00", "PM", "02/29/2000", "15:00", "PM");
         assertThat(result.getTextWrittenToStandardError(), containsString("Invalid Date entered. Month cannot be greater than 12."));
         assertThat(result.getExitCode(), equalTo(1));
     }
 
     @Test
     public void invalidDateGreaterDay() {
-        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "02/32/2019", "12:00", "02/29/2000", "15:00");
+        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "02/32/2019", "12:00", "PM", "02/29/2000", "15:00", "PM");
         assertThat(result.getTextWrittenToStandardError(), containsString("Invalid Day entered. Day cannot be greater than 31."));
         assertThat(result.getExitCode(), equalTo(1));
     }
 
     @Test
     public void invalidDateFormat() {
-        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "July 14th", "12:00", "02/29/2000", "15:00");
+        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "July 14th", "12:00", "PM", "02/29/2000", "15:00", "PM");
         assertThat(result.getTextWrittenToStandardError(), containsString("Date and Time has to be in integers not strings. Ex) 12/12/1212\n"));
         assertThat(result.getExitCode(), equalTo(1));
     }
 
     @Test
     public void invalidDateFormat2() {
-        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "02/31/2019", "12:00", "0229/2000", "15:00");
+        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "02/31/2019", "12:00", "PM", "0229/2000", "15:00", "PM");
         assertThat(result.getTextWrittenToStandardError(), containsString("Invalid Date entered. Month cannot be greater than 12."));
         assertThat(result.getExitCode(), equalTo(1));
     }
 
     @Test
     public void invalidDateFormat3() {
-        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "02/31/2019", "12:00", "02/29/2000", "1500");
+        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "02/31/2019", "12:00", "PM", "02/29/2000", "1500", "PM");
         assertThat(result.getTextWrittenToStandardError(), containsString("Time incorrect format. Format is hh:mm"));
         assertThat(result.getExitCode(), equalTo(1));
     }
 
     @Test
     public void invalidDateFormat4() {
-        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "02/21/20199", "12:00", "02/29/2000", "15:00");
+        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "02/21/20199", "12:00", "PM", "02/29/2000", "11:00", "PM");
         assertThat(result.getTextWrittenToStandardError(), containsString("Date and Time format incorrect. Must be of format dd/mm/yyyy hh:mm"));
         assertThat(result.getExitCode(), equalTo(1));
     }
 
+    @Test
+    public void invalidDateFormat5() {
+        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "02/21/2019", "12:00", "PM", "02/29/2000", "13:00", "PM");
+        assertThat(result.getTextWrittenToStandardError(), containsString("Invalid Time entered. Hours cannot be more than 12"));
+        assertThat(result.getExitCode(), equalTo(1));
+    }
+
+    @Test
+    public void startTimeBeforeEnd() {
+        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "02/25/2019", "12:00", "pm", "02/22/2019", "07:00", "pm");
+        assertThat(result.getTextWrittenToStandardError(), containsString("Start time of appointment cannot be after end time"));
+        assertThat(result.getExitCode(), equalTo(1));
+    }
+
+    @Test
+    public void noMore24HourFormat() {
+        MainMethodResult result = invokeMain("-print", "Brian Griffin", "Trip to the dentist", "02/22/2019", "13:00", "pm", "02/29/2020", "07:00", "pm");
+        assertThat(result.getTextWrittenToStandardError(), containsString("Invalid Time entered. Hours cannot be more than 12"));
+        assertThat(result.getExitCode(), equalTo(1));
+    }
 }
