@@ -74,7 +74,8 @@ public class AppointmentBook<T extends Appointment> extends AbstractAppointmentB
     /**
      * Method to add an appointment to the ArrayList of appointments. It will first check if the appointments
      * data member is null, if it is it will create a new ArrayList and add the appointment passed in. If
-     * it is not null it will simply add it to the ArrayList
+     * it is not null it will simply add it to the ArrayList.
+     * Also calls sort appointments upon entry of a new appointment
      * @param appointment Appointment to be added to the Appointment Book.
      */
     @Override
