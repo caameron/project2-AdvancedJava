@@ -170,8 +170,8 @@ public class Project3 {
             } catch (ArrayIndexOutOfBoundsException er) {System.err.println("Time incorrect format. Format is hh:mm");}
             int hoursB = Integer.parseInt(splitTimeB[0]);
             int hoursE = Integer.parseInt(splitTimeE[0]);
-            if (hoursB > 24 || hoursE > 24) {
-                System.err.println("Invalid Time entered. Hours cannot be more than 24");
+            if (hoursB > 12 || hoursE > 12) {
+                System.err.println("Invalid Time entered. Hours cannot be more than 12");
                 System.exit(1);
             }
         } catch (NumberFormatException e)

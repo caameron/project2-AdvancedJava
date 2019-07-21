@@ -143,6 +143,10 @@ public class Appointment extends AbstractAppointment implements Comparable<Appoi
 
     startTimeDate = calStart.getTime();
     endTimeDate = calEnd.getTime();
+    if(startTimeDate.compareTo(endTimeDate) > 0)
+    {
+      throw new Exception("Start time of appointment cannot be after end time");
+    }
 //    System.out.println(startTimeDate);
 //    System.out.println(endTimeDate);
 //    System.out.println(DateFormat.getDateInstance(DateFormat.SHORT).format(startTimeDate));
