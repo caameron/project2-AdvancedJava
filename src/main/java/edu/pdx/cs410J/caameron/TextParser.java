@@ -123,6 +123,10 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
             {
                 throw new ParserException("Malformatted text file: " + err.getMessage());
             }
+            else if(err.getMessage().equals("Start time of appointment cannot be after end time"))
+            {
+                throw new ParserException(err.getMessage());
+            }
             throw new ParserException("No text file with that name exists, creating new file " + fileName);
         }
 

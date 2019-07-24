@@ -127,7 +127,7 @@ public class Project3 {
         //Choose to do so.
         if(arguments.size() != 8)
         {
-            System.err.println("Did not give the correct arguments to command line. There must be a 6 arguments - owner, description, beginDate, beginTime, endDate, endTime");
+            System.err.println("Did not give the correct arguments to command line. There must be a 8 arguments - owner, description, beginDate, beginTime, begin(am or pm), endDate, endTime, end(am or pm)");
             System.exit(1);
         }
 
@@ -206,6 +206,11 @@ public class Project3 {
             catch (Exception err) {
 //            System.out.println("No text file with that name exists, creating new file " + fileName);
                 if(!err.getMessage().equals("No text file with that name exists, creating new file " + fileName))
+                {
+                    System.out.println(err.getMessage());
+                    System.exit(1);
+                }
+                else if(err.getMessage().equals("Malformatted file: Start time of appointment cannot be after end time"))
                 {
                     System.out.println(err.getMessage());
                     System.exit(1);
