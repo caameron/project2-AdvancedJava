@@ -104,6 +104,14 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
                 endTimeOfDay = endSplit[2];
                 Appointment appt = new Appointment(beginDate, beginTime, endDate, endTime, description, beginTimeOfDay, endTimeOfDay);
                 returnBook.addAppointment(appt);
+                String[] splitTime = beginTime.split(":");
+                String[] splitTimeEnd = endTime.split(":");
+                int bHrs = Integer.parseInt(splitTime[0]);
+                int eHrs = Integer.parseInt(splitTimeEnd[0]);
+                if(bHrs > 12 || eHrs > 12 )
+                {
+                    throw new Exception("Hours cannot be more than 12");
+                }
             }
 
             if(malformatted == true)
@@ -123,9 +131,9 @@ public class TextParser <T extends AbstractAppointmentBook> implements Appointme
             {
                 throw new ParserException("Malformatted text file: " + err.getMessage());
             }
-            else if(err.getMessage().equals("Start time of appointment cannot be after end time"))
+            else if(err.getMessage().equals("Start time of appointment cannot be after end time") || err.getMessage().equals("Start time of day is not am or pm. Please Specify 'am' or 'pm'") || err.getMessage().equals("End time of day is not am or pm. Please Specify 'am' or 'pm'") || err.getMessage().equals("Hours cannot be more than 12"))
             {
-                throw new ParserException(err.getMessage());
+                throw new ParserException("Malformatted text file: " + err.getMessage());
             }
             throw new ParserException("No text file with that name exists, creating new file " + fileName);
         }

@@ -210,7 +210,7 @@ public class Project3 {
                     System.out.println(err.getMessage());
                     System.exit(1);
                 }
-                else if(err.getMessage().equals("Malformatted file: Start time of appointment cannot be after end time"))
+                else if(err.getMessage().equals("Start time of appointment cannot be after end time") || err.getMessage().equals("Start time of day is not am or pm. Please Specify 'am' or 'pm'") || err.getMessage().equals("End time of day is not am or pm. Please Specify 'am' or 'pm'") || err.getMessage().equals("Hours cannot be more than 12"))
                 {
                     System.out.println(err.getMessage());
                     System.exit(1);
